@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 智能舵机开关</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ESP32 智能舵机开关</h1>
+
+        <!-- 灯具开关模块 -->
+        <div class="card">
+            <h2>灯具开关</h2>
+            <button id="turnOnLightBtn">开灯</button>
+            <button id="turnOffLightBtn">关灯</button>
+            <p>当前状态: <span id="lightStatus">关</span></p>
+        </div>
+
+        <!-- 设置开关灯角度模块 -->
+        <div class="card">
+            <h2>设置开关灯角度</h2>
+            <label for="onAngleInput">开灯角度 (0-180):</label>
+            <input type="number" id="onAngleInput" min="0" max="180" value="90">
+            <button id="setOnAngleBtn">设置开灯角度</button>
+            <br><br>
+            <label for="offAngleInput">关灯角度 (0-180):</label>
+            <input type="number" id="offAngleInput" min="0" max="180" value="0">
+            <button id="setOffAngleBtn">设置关灯角度</button>
+        </div>
+
+        <!-- 自动复位控制模块 -->
+        <div class="card">
+            <h2>自动复位控制</h2>
+            <label class="switch">
+                <input type="checkbox" id="autoResetToggle">
+                <span class="slider round"></span>
+            </label>
+            <span class="label-text">启用自动复位</span>
+            <br><br>
+            <label for="autoResetAngleInput">复位位置 (0-180):</label>
+            <input type="number" id="autoResetAngleInput" min="0" max="180" value="45">
+            <button id="setAutoResetAngleBtn">设置复位角度</button>
+        </div>
+
+        <!-- 网络配置模块 -->
+        <div class="card">
+            <h2>网络配置</h2>
+            <p>ESP32 IP地址: <span id="ipAddress">获取中...</span></p>
+            <button onclick="window.location.href='/wifimanager'">配置WiFi</button>
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
