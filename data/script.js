@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const autoResetAngleInput = document.getElementById('autoResetAngleInput');
     const setAutoResetAngleBtn = document.getElementById('setAutoResetAngleBtn');
     const ipAddressSpan = document.getElementById('ipAddress');
+    const configureWifiBtn = document.getElementById('configureWifiBtn');
+    const uptimeSpan = document.getElementById('uptime');
+    const bootTimeSpan = document.getElementById('bootTime');
 
     // 初始化页面状态
     function updateStatus() {
@@ -30,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ipAddressSpan.textContent = ip;
             })
             .catch(error => console.error('获取IP地址失败:', error));
+
+        fetch('/timeinfo')
+            .then(response => response.json())
+            .then(data => {
+                uptimeSpan.textContent = data.uptime;
+                bootTimeSpan.textContent = data.bootTime;
+            })
+            .catch(error => console.error('获取时间信息失败:', error));
     }
 
     // 开灯
@@ -134,4 +145,23 @@ document.addEventListener('DOMContentLoaded', () => {
     updateStatus();
     // 每5秒更新一次IP地址，确保显示最新IP
     setInterval(updateStatus, 5000);
+
+    // 配置WiFi按钮
+    configureWifiBtn.addEventListener('click', () => {
+        if (confirm('确定要断开当前WiFi并进入配网模式吗？')) {
+            fetch('/disconnectAndConfigureWifi')
+                .then(response => {
+                    if (response.ok) {
+                        alert('ESP32正在断开WiFi并进入配网模式，请稍候...');
+                        // 等待ESP32处理，然后重定向到WiFiManager
+                        setTimeout(() => {
+                            window.location.href = '/wifimanager';
+                        }, 3000); // 3秒延迟
+                    } else {
+                        alert('请求失败，无法进入配网模式。');
+                    }
+                })
+                .catch(error => console.error('请求配网模式失败:', error));
+        }
+    });
 });

@@ -48,7 +48,9 @@
         <div class="card">
             <h2>网络配置</h2>
             <p>ESP32 IP地址: <span id="ipAddress">获取中...</span></p>
-            <button onclick="window.location.href='/wifimanager'">配置WiFi</button>
+            <button id="configureWifiBtn">退出WiFi</button>
+            <p>当前运行时间: <span id="uptime">获取中...</span></p>
+            <p>开机时间: <span id="bootTime">获取中...</span></p>
         </div>
     </div>
     <script src="/script.js"></script>
